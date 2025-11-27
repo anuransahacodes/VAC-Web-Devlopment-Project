@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>EVENTO – Best Event Organizers</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* ──────────────────────────────────────
+   GLOBAL RESET & TYPOGRAPHY
+   ────────────────────────────────────── */
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px}
+body{
+    font-family:'Poppins',sans-serif;
+    background:#0f0f0f;
+    color:#eee;
+    line-height:1.7;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* ──────────────────────────────────────
+   NAVBAR
+   ────────────────────────────────────── */
+.navbar{
+    position:fixed;top:0;left:0;width:100%;
+    padding:1.2rem 5%;background:rgba(15,15,15,.95);
+    backdrop-filter:blur(12px);display:flex;
+    justify-content:space-between;align-items:center;
+    z-index:1000;border-bottom:1px solid #333;
+}
+.logo{font-size:2rem;font-weight:700;color:#00d4ff}
+.nav-links{list-style:none;display:flex;gap:2.5rem}
+.nav-links a{color:#ccc;font-weight:500;position:relative;transition:.3s}
+.nav-links a::after{
+    content:'';position:absolute;bottom:-5px;left:0;width:0;height:2px;
+    background:#00d4ff;transition:.3s
+}
+.nav-links a:hover{color:#00d4ff}
+.nav-links a:hover::after{width:100%}
+
+/* ──────────────────────────────────────
+   HERO + SLIDER
+   ────────────────────────────────────── */
+.hero{position:relative;height:100vh;overflow:hidden}
+.slider{position:relative;width:100%;height:100%}
+.slides{display:flex;width:1000%;height:100%;transition:transform .7s ease}
+.slide{width:10%;height:100%}
+.slide img{width:100%;height:100%;object-fit:cover;filter:brightness(.6)}
+.prev,.next{
+    position:absolute;top:50%;transform:translateY(-50%);
+    background:rgba(0,0,0,.6);color:#fff;border:none;
+    padding:1rem 1.2rem;font-size:1.8rem;cursor:pointer;
+    border-radius:50%;z-index:10;transition:.3s
+}
+.prev:hover,.next:hover{background:#00d4ff}
+.prev{left:30px}.next{right:30px}
+
+.hero-text{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    text-align:center;z-index:11;animation:fadeIn 1.5s ease
+}
+@keyframes fadeIn{
+    from{opacity:0;transform:translate(-50%,-60%)}
+    to{opacity:1;transform:translate(-50%,-50%)}
+}
+.hero-text h1{font-size:4rem;font-weight:700;text-shadow:0 0 20px rgba(0,0,0,.8)}
+.hero-text h2{font-size:2.3rem;color:#00d4ff;margin:1rem 0}
+.cta-btn{
+    background:linear-gradient(45deg,#00d4ff,#007bff);color:#fff;
+    border:none;padding:14px 36px;font-size:1.1rem;border-radius:50px;
+    cursor:pointer;font-weight:600;box-shadow:0 5px 15px rgba(0,212,255,.4);
+    transition:.3s
+}
+.cta-btn:hover{
+    transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,212,255,.6)
+}
+
+/* ──────────────────────────────────────
+   SECTION COMMON
+   ────────────────────────────────────── */
+section{padding:5rem 5%}
+h2{
+    text-align:center;font-size:2.8rem;margin-bottom:3rem;color:#00d4ff;
+    position:relative
+}
+h2::after{
+    content:'';width:80px;height:4px;background:#00d4ff;
+    display:block;margin:10px auto;border-radius:2px
+}
+
+/* ──────────────────────────────────────
+   SERVICES
+   ────────────────────────────────────── */
+.service-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:2rem
+}
+.service-item{
+    background:#1a1a1a;padding:2.5rem 1.5rem;border-radius:16px;
+    text-align:center;transition:.4s;border:1px solid #333
+}
+.service-item:hover{
+    background:#00d4ff;color:#111;transform:translateY(-12px);
+    box-shadow:0 10px 25px rgba(0,212,255,.3)
+}
+.service-item .icon{font-size:3rem;margin-bottom:1rem;color:#00d4ff}
+.service-item h3{font-size:1.3rem;font-weight:600}
+
+/* ──────────────────────────────────────
+   ABOUT
+   ────────────────────────────────────── */
+.about-content{
+    display:flex;align-items:center;gap:3rem;flex-wrap:wrap;
+    background:#1a1a1a;padding:3rem;border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.5)
+}
+.about-content img{
+    width:100%;max-width:400px;border-radius:16px;
+    box-shadow:0 10px 30px rgba(0,0,0,.6)
+}
+.about-text h3{font-size:1.9rem;color:#00d4ff;margin-bottom:1rem}
+.about-text p{margin-bottom:1rem;color:#bbb}
+
+/* ──────────────────────────────────────
+   GALLERY
+   ────────────────────────────────────── */
+.gallery-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem
+}
+.gallery-grid img{
+    height:250px;object-fit:cover;border-radius:16px;
+    transition:.4s;box-shadow:0 5px 15px rgba(0,0,0,.5)
+}
+.gallery-grid img:hover{
+    transform:scale(1.05);
+    box-shadow:0 15px 30px rgba(0,212,255,.4)
+}
+
+/* ──────────────────────────────────────
+   PRICE
+   ────────────────────────────────────── */
+.price-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:2rem
+}
+.price-card{
+    background:#1a1a1a;padding:2.5rem;border-radius:18px;
+    text-align:center;transition:.4s;border:1px solid #333
+}
+.price-card:hover{
+    transform:translateY(-10px);border-color:#00d4ff
+}
+.price-card.highlight{
+    background:linear-gradient(135deg,#00d4ff,#007bff);
+    transform:scale(1.05);box-shadow:0 15px 35px rgba(0,212,255,.4)
+}
+.amount{font-size:2.4rem;font-weight:700;margin:1rem 0;color:#fff}
+.price-card ul{margin:1.5rem 0;color:#ddd;font-size:.95rem;text-align:left}
+.check-btn{
+    background:#fff;color:#111;border:none;padding:12px 28px;
+    border-radius:50px;font-weight:600;cursor:pointer;transition:.3s
+}
+.check-btn:hover{background:#eee}
+
+/* ──────────────────────────────────────
+   CONTACT
+   ────────────────────────────────────── */
+.contact-form{
+    max-width:900px;margin:0 auto;background:#1a1a1a;
+    padding:3rem;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.5)
+}
+.form-row{display:flex;gap:1.5rem;margin-bottom:1.5rem}
+.form-row input{flex:1}
+input,textarea{
+    width:100%;padding:1rem 1.2rem;background:#222;
+    border:1px solid #444;border-radius:10px;color:#fff;
+    font-size:1rem;transition:.3s
+}
+input:focus,textarea:focus{
+    outline:none;border-color:#00d4ff;
+    box-shadow:0 0 10px rgba(0,212,255,.3)
+}
+.send-btn{
+    background:linear-gradient(45deg,#00d4ff,#007bff);color:#fff;
+    padding:14px 40px;border:none;border-radius:50px;
+    font-weight:600;cursor:pointer;display:block;margin:1.5rem auto 0;
+    transition:.3s
+}
+.send-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(0,212,255,.5)
+}
+
+/* ──────────────────────────────────────
+   FOOTER
+   ────────────────────────────────────── */
+.footer{
+    background:#0a0a0a;padding:4rem 5% 2rem;border-top:1px solid #333
+}
+.footer-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:2.5rem;margin-bottom:2rem
+}
+.footer h4{color:#00d4ff;margin-bottom:1.2rem;font-size:1.3rem}
+.footer ul li{margin-bottom:.7rem;color:#aaa;font-size:.95rem}
+.footer a{color:#aaa;transition:.3s}
+.footer a:hover{color:#00d4ff}
+.social a{font-size:1.4rem;margin-right:1rem;color:#00d4ff}
+.footer p{
+    text-align:center;color:#666;font-size:.9rem;margin-top:2rem
+}
+
+/* ──────────────────────────────────────
+   RESPONSIVE
+   ────────────────────────────────────── */
+@media (max-width:768px){
+    .hero-text h1{font-size:2.8rem}
+    .hero-text h2{font-size:1.8rem}
+    .about-content{flex-direction:column;text-align:center}
+    .gallery-grid{grid-template-columns:1fr 1fr}
+    .form-row{flex-direction:column}
+    .navbar .nav-links{gap:1rem;font-size:.9rem}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ====================== NAVBAR ====================== -->
+<nav class="navbar">
+    <div class="logo">EVENTO</div>
+    <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#price">Price</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- ====================== HERO + SLIDER ====================== -->
+<section id="home" class="hero">
+    <div class="slider">
+        <div class="slides">
+            <!-- ***** REPLACE THESE SRC WITH YOUR OWN 10 IMAGES ***** -->
+            <div class="slide"><img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Event 1"></div>
+            <div class="slide"><img src="https://images.unsplash.com/photo-1464366400600-7168bc0ebe76?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Event 2"></div>
+            <div class="slide"><img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Event 3"></div>
+            <div class="slide"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Event 4"></div>
+            <div class="slide"><img src="https://images.unsplash.com/photo-1606890737304-1a8d1fe7a6a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Event 5"></div>
+            <div class="slide"><img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Event 6"></div>
+            <div class="slide"><img src="https://images.unsplash.com/photo-1505236858219-65ceb3df6fc1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Event 7"></div>
+            <div class="slide"><img src="https://images.unsplash.com/photo-1602630393537-6e13c2f1c98c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Event 8"></div>
+            <div class="slide"><img src="https://images.unsplash.com/photo-1527529482837-7c4a2f9d6e7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Event 9"></div>
+            <div class="slide"><img src="https://images.unsplash.com/photo-1515939755236-4eaea849b5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Event 10"></div>
+        </div>
+        <button class="prev" onclick="changeSlide(-1)">❮</button>
+        <button class="next" onclick="changeSlide(1)">❯</button>
+    </div>
+
+    <div class="hero-text">
+        <h1>IT'S TIME TO CELEBRATE!</h1>
+        <h2>THE BEST EVENT ORGANIZERS</h2>
+        <button class="cta-btn">Contact Us</button>
+    </div>
+</section>
+
+<!-- ====================== SERVICES ====================== -->
+<section id="services">
+    <h2>OUR SERVICES</h2>
+    <div class="service-grid">
+        <div class="service-item"><div class="icon"><i class="fas fa-map-marker-alt"></i></div><h3>Venue Selection</h3></div>
+        <div class="service-item"><div class="icon"><i class="fas fa-envelope"></i></div><h3>Invitation Card</h3></div>
+        <div class="service-item"><div class="icon"><i class="fas fa-music"></i></div><h3>Entertainment</h3></div>
+        <div class="service-item"><div class="icon"><i class="fas fa-utensils"></i></div><h3>Food And Drinks</h3></div>
+        <div class="service-item"><div class="icon"><i class="fas fa-camera"></i></div><h3>Photos And Videos</h3></div>
+        <div class="service-item"><div class="icon"><i class="fas fa-birthday-cake"></i></div><h3>Custom Foods</h3></div>
+    </div>
+</section>
+
+<!-- ====================== ABOUT ====================== -->
+<section id="about">
+    <h2>ABOUT US</h2>
+    <div class="about-content">
+        <!-- ***** REPLACE THIS IMAGE ***** -->
+        <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Team">
+        <div class="about-text">
+            <h3>We Create Unforgettable Moments</h3>
+            <p>At <strong>EVENTO</strong> we turn every occasion into a masterpiece. Weddings, birthdays, corporate functions, concerts – we handle every detail with passion and precision.</p>
+            <p>With over a decade of experience in Delhi, our expert team guarantees stunning venues, gourmet catering, live entertainment, and cinematic photography.</p>
+            <p>Your perfect event starts here.</p>
+            <button class="cta-btn">Contact Us</button>
+        </div>
+    </div>
+</section>
+
+<!-- ====================== GALLERY ====================== -->
+<section id="gallery">
+    <h2>OUR GALLERY</h2>
+    <div class="gallery-grid">
+        <!-- ***** REPLACE THESE 9 IMAGES ***** -->
+        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="">
+        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="">
+        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="">
+        <img src="https://images.unsplash.com/photo-1464366400600-7168bc0ebe76?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="">
+        <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="">
+        <img src="https://images.unsplash.com/photo-1505236858219-65ceb3df6fc1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="">
+        <img src="https://images.unsplash.com/photo-1606890737304-1a8d1fe7a6a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="">
+        <img src="https://images.unsplash.com/photo-1527529482837-7c4a2f9d6e7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="">
+        <img src="https://images.unsplash.com/photo-1515939755236-4eaea849b5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="">
+    </div>
+</section>
+
+<!-- ====================== PRICE ====================== -->
+<section id="price">
+    <h2>OUR PRICE</h2>
+    <div class="price-grid">
+        <div class="price-card">
+            <h3>For Birthdays</h3><div class="amount">₹18,999</div>
+            <ul><li>Full Services</li><li>Decorations</li><li>Music & Photos</li><li>Food & Drinks</li><li>Invitation Card</li></ul>
+            <button class="check-btn">Check Out</button>
+        </div>
+        <div class="price-card highlight">
+            <h3>For Wedding</h3><div class="amount">₹45,999</div>
+            <ul><li>Full Services</li><li>Decorations</li><li>Music & Photos</li><li>Food & Drinks</li><li>Invitation Card</li></ul>
+            <button class="check-btn">Check Out</button>
+        </div>
+        <div class="price-card">
+            <h3>For Concerts</h3><div class="amount">₹69,999</div>
+            <ul><li>Full Services</li><li>Decorations</li><li>Music & Photos</li><li>Food & Drinks</li><li>Invitation Card</li></ul>
+            <button class="check-btn">Check Out</button>
+        </div>
+        <div class="price-card">
+            <h3>For Others</h3><div class="amount">₹89,999</div>
+            <ul><li>Full Services</li><li>Decorations</li><li>Music & Photos</li><li>Food & Drinks</li><li>Invitation Card</li></ul>
+            <button class="check-btn">Check Out</button>
+        </div>
+    </div>
+</section>
+
+<!-- ====================== CONTACT ====================== -->
+<section id="contact">
+    <h2>CONTACT US</h2>
+    <form class="contact-form">
+        <div class="form-row">
+            <input type="text" placeholder="Name" required>
+            <input type="tel" placeholder="Number" required>
+        </div>
+        <div class="form-row">
+            <input type="email" placeholder="Email" required>
+            <input type="text" placeholder="Subject" required>
+        </div>
+        <textarea placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit" class="send-btn">Send Message</button>
+    </form>
+</section>
+
+<!-- ====================== FOOTER ====================== -->
+<footer class="footer">
+    <div class="footer-grid">
+        <div>
+            <h4>Branches</h4>
+            <ul><li><i class="fas fa-map-marker-alt"></i> New Delhi</li></ul>
+        </div>
+        <div>
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#price">Price</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Contact Info</h4>
+            <ul>
+                <li><i class="fas fa-phone"></i> +91 8800675498</li>
+                <li><i class="fas fa-envelope"></i> vishalg35498@gmail.com</li>
+                <li><i class="fas fa-envelope"></i> guptavishal35498@gmail.com</li>
+                <li><i class="fas fa-map"></i> Delhi – 110080</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Follow Us</h4>
+            <div class="social">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+    <p>&copy; 2025 EVENTO. All Rights Reserved.</p>
+</footer>
+
+<script>
+/* ───── SLIDER ───── */
+let slideIdx = 0;
+const slides = document.querySelector('.slides');
+const total = 10; // number of slides
+
+function show(n){
+    if(n>=total) slideIdx=0;
+    if(n<0) slideIdx=total-1;
+    slides.style.transform = `translateX(${-slideIdx*10}%)`;
+}
+function changeSlide(dir){ slideIdx+=dir; show(slideIdx); }
+
+/* auto‑play */
+setInterval(()=>{ slideIdx++; show(slideIdx); },4000);
+
+/* smooth scroll for nav links */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+        e.preventDefault();
+        document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'});
+    });
+});
+</script>
+</body>
+</html>
